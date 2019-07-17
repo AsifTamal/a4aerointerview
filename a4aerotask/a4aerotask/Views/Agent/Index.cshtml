@@ -1,0 +1,663 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section Styles{
+    <style>
+        span.error {
+            display: block;
+            visibility: hidden;
+            color: red;
+            font-weight: bold;
+            font-size: 100%;
+        }
+
+        .progress {
+            display: none;
+        }
+    </style>
+   
+
+}
+
+<!DOCTYPE html>
+
+<head>
+
+
+</head>
+
+<h2> Agent Information database</h2>
+<hr />
+<label id="showMessage" style="color: red; font-size: medium"></label>
+<div>
+    <form id="fileinfo" enctype="multipart/form-data" method="post" name="fileinfo">
+        <div class="row">
+            <div class="form-horizontal">
+                <div class="col-md-6">
+                    <input type="hidden" id="hdfAgentId">
+                    <input type="hidden" id="hdfImageId">
+                    <input type="hidden" id="hdfCreatedDate">
+                    <div class="form-group">
+                        <label class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="Code" name="Code" >
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Email<span class="error">* Enter Name</span></label>
+                        <input type="text" class="form-control" id="Email" name="Email">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Name<span class="error">* Enter Name</span></label>
+                        <input type="text" class="form-control" id="Name" name="Name">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Street<span class="error">* Enter Street</span></label>
+                        <input type="text" class="form-control" id="Street" name="Street">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">City<span class="error">* Enter City</span></label>
+                        <input type="text" class="form-control" id="City" name="City">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">State<span class="error">* Enter State</span></label>
+                        <input type="text" class="form-control" id="State" name="State">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Zip<span class="error">* Enter Zip</span></label>
+                        <input type="text" class="form-control" id="Zip" name="Zip">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Country<span class="error">* Enter Country</span></label>
+                        <input type="text" class="form-control" id="Country" name="Country">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Mobile<span class="error">* Enter Mobile</span></label>
+                        <input type="text" class="form-control" id="Mobile" name="Mobile">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Phone<span class="error">* Enter Phone</span></label>
+                        <input type="text" class="form-control" id="Phone" name="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Contact Person<span class="error">* ContactPerson</span></label>
+                        <input type="text" class="form-control" id="ContactPerson" name="ContactPerson">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Referred By<span class="error">* Enter ReferredBy</span></label>
+                        <input type="text" class="form-control" id="ReferredBy" name="ReferredBy">
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display:none;">
+                            <img id="image" alt="" src="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="button" id="save" value="Save" class="btn btn-success">
+                        <input type="button" id="update" value="Update" class="btn btn-success">
+                        @*<input type="button" id="delete" value="Delete" class="btn btn-success">*@
+                        <input type="button" id="clear" value="Clear" class="btn btn-success">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @*<hr />*@
+                  
+                    <div class="form-group">
+                        <label class="col-form-label">Balance<span class="error">* Enter Balance</span></label>
+                        <input type="number" class="form-control" id="Balance" name="Balance">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">LoginUrl<span class="error">* Enter LoginUrl</span></label>
+                        <input type="text" class="form-control" id="LoginUrl" name="LoginUrl">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">SecurityCode<span class="error">* Enter SecurityCode</span></label>
+                        <input type="text" class="form-control" id="SecurityCode" name="SecurityCode">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">SMTPServer<span class="error">* Enter Balance</span></label>
+                        <input type="text" class="form-control" id="SMTPServer" name="SMTPServer">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">SMTPPort<span class="error">* Enter SMTPPort</span></label>
+                        <input type="number" class="form-control" id="SMTPPort" name="SMTPPort">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">SMTPUsername<span class="error">* Enter SMTPUsername</span></label>
+                        <input type="text" class="form-control" id="SMTPUsername" name="SMTPUsername">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">SMTPPassword<span class="error">* Enter SMTPPassword</span></label>
+                        <input type="text" class="form-control" id="SMTPPassword" name="SMTPPassword">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label class="col-form-label">CurrentBalance<span class="error">* Enter CurrentBalance</span></label>
+                        <input type="number" class="form-control" id="CurrentBalance" name="CurrentBalance">
+                    </div>
+
+
+                   
+                    <div class="form-group">
+                        <label class="col-form-label">Status</label>
+
+                        <input checked="checked" class="form-check-input" id="Active" name="Status" type="radio" value=1 />Active
+                        <input class="form-check-input" id="Inactive" name="Status" type="radio" value=0 />Inactive
+                    </div>
+
+
+                    <div id="imgPreview" class="thumbnail" style="display:none">
+                        <img class="img-responsive" id="targetImg" />
+                        <div class="caption">
+                            <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                            <span id="description"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label">Logo</label>
+                        <input type="file" class="form-control" id="Logo" name="Logo" accept="image/png, image/jpeg, image/jpg">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+<hr />
+<div class="tablecontainer table-responsive">
+    <table id="AgentinfoTable" class="display" cellspacing="0" style="width:100%;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Email</th>
+                <th>Name</th>
+                
+                <th>Full Address</th>
+                <th>Mobile</th>
+                <th>Phone</th>
+                <th>ContactPerson</th>
+                <th>ReferredBy</th>
+                <th>Balance</th>
+                <th>LoginUrl</th>
+                <th>SecurityCode</th>
+                <th>SMTPServer</th>
+                <th>Status</th>
+                <th>SMTPPort</th>
+
+                <th>SMTPUsername</th>
+                <th>Deleted</th>
+                <th>CurrentBalance</th>
+                <th>Pic</th>
+               
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+@section Scripts{
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script>
+
+    var AgentTable;
+        $(document).ready(function () {
+            $('#update').hide();
+            $('#delete').hide();
+            document.getElementById('showMessage').innerHTML = '';
+          
+            loadAgent();
+            Imagepreview();
+          
+
+        });
+        function Imagepreview() {
+            $("#Logo").change(function () {
+
+                var File = this.files;
+
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+
+            })
+        }
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+
+                }
+
+            }
+
+        }
+
+        var ClearPreview = function () {
+            $("#Logo").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
+            $('#hdfImageId').val('');
+        }
+        $('#save').click(function ()
+        {
+            var isValidData = checkValidation();
+            if (isValidData) {
+                var data = BindData();
+                $.ajax({ 
+                    url: "/Agent/SaveAgent",
+                    type: "POST",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (obj) {
+                        if (obj.status == true) {
+                            AgentTable.destroy();
+                            clearData();
+                            loadAgent();
+                        }
+                        document.getElementById('showMessage').innerHTML = obj.message;
+                    },
+                });
+            }
+        });
+        function checkValidation() {
+            var isValid = true;
+            if ($('#Balance').val().trim() === '') {
+                isValid = false;
+                $('#Balance').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#Balance').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#SMTPPort').val().trim() === '') {
+                isValid = false;
+                $('#SMTPPort').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#SMTPPort').parent().find('span').css('visibility', 'hidden');
+            }
+            if ($('#CurrentBalance').val().trim() === '') {
+                isValid = false;
+                $('#CurrentBalance').parent().find('span').css('visibility', 'visible');
+            }
+            else {
+                $('#CurrentBalance').parent().find('span').css('visibility', 'hidden');
+            }
+           
+            return isValid;
+        }
+
+        function BindData() {
+            var isActive;
+           
+            //if (document.getElementsByName('IsDeleted')[0].checked) {
+            //    isDeleted = true;
+            //}
+            //else {
+            //    isDeleted = false;
+            //}
+
+            var formData = new FormData();
+            var fileUpload = $("#Logo").get(0);
+            var files = fileUpload.files;
+            formData.append("UploadImage", files[0]);
+            
+            formData.append("Code", $('#Code').val());
+            formData.append("Email", $('#Email').val());
+            formData.append("Name", $('#Name').val());
+            formData.append("Street", $('#Street').val());
+            formData.append("City", $('#City').val());
+            formData.append("State", $('#State').val());
+            formData.append("Zip", $('#Zip').val());
+            formData.append("Country", $('#Country').val());
+            formData.append("Mobile", $('#Mobile').val());
+            formData.append("Phone", $('#Phone').val());
+            formData.append("ContactPerson", $('#ContactPerson').val());
+            formData.append("ReferredBy", $('#ReferredBy').val());
+            formData.append("Balance", $('#Balance').val());
+            formData.append("LoginUrl", $('#LoginUrl').val());
+            formData.append("SecurityCode", $('#SecurityCode').val());
+            formData.append("SMTPServer", $('#SMTPServer').val());
+            formData.append("SMTPPort", $('#SMTPPort').val());
+            formData.append("SMTPUsername", $('#SMTPUsername').val());
+            formData.append("SMTPPassword", $('#SMTPPassword').val());
+            formData.append("CurrentBalance", $('#CurrentBalance').val());
+            formData.append("Status", $('input[name="Status"]:checked').val());
+           // formData.append("Deleted", isDeleted);
+            return formData;
+
+        }
+
+        $('#clear').click(function () {
+            document.getElementById('showMessage').innerHTML = '';
+            clearData();
+        });
+        
+
+        function loadAgent() {
+            AgentTable =
+                $('#AgentinfoTable').DataTable({
+                    "ajax": {
+                        "url": '@Url.Action("GetAgentInfo", "Agent")',
+                        "type": "get",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "BusinessId" },
+                        { "data": "Code" },
+                        { "data": "Email" },
+
+                         { "data": "Name" },
+                          
+                            { "data": "fulladdress" },
+                           { "data": "Mobile" },
+
+                         { "data": "Phone" },
+                           { "data": "ContactPerson" },
+                           { "data": "ReferredBy" },
+
+                        
+                           { "data": "Balance" },
+                           { "data": "LoginUrl" },
+
+                         { "data": "SecurityCode" },
+                           { "data": "SMTPServer" },
+                            { "data": "StatusIsActive" },
+                           { "data": "SMTPPort" },
+
+                         { "data": "SMTPUsername" },
+                          { "data": "Deleted" },
+                           { "data": "CurrentBalance" },
+
+                        
+                        
+
+                      {
+                          "data": "PicPath", "width": "220px", "height": "200px", "render": function (data) {
+                              return ' <img src="/AppFile/Images/' + data + '" class="img-responsive"  />';
+                          }
+                      },
+                       //{ "data": "StatusIsActive", "class": "STATUS" },
+                       
+                       {
+                           "data": "BusinessId", "width": "50px", "render": function (data) {
+                               return '<a href="#" onClick="editData(' + data + ')">Edit</a>';
+                           }
+                       },
+                        {
+                            "data": "BusinessId", "width": "50px", "render": function (data) {
+                                return '<a href="#" onClick="deleteData(' + data + ')">Delete</a>';
+                            }
+                        }
+                    ],
+                    "order": [[0, "desc"]]
+                });
+
+            $('#AgentinfoTable').on('click', 'tr', function () {
+                //console.log(data);
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+
+                else {
+                    StdTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+              
+
+            });
+
+        }
+    function editData(id) {
+        //alert(id);
+        var data = { BusinessId: id };
+        $.ajax({
+            url: '@Url.Action("GetAgentInfoById", "Agent")',
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+         
+            success: function (data) {
+               
+                console.log(data);
+                bindDataAgentInfo(data);
+             
+            }
+        });
+    }
+    function clearData() {
+        $('#Logo').val('');
+        $('#Code').val('');
+        $('#Email').val('');
+        $('#Name').val('');
+        $('#Street').val('');
+        $('#City').val('');
+        $('#State').val('');
+        $('#Zip').val('');
+        $('#Country').val('');
+        $('#Mobile').val('');
+        $('#Phone').val('');
+        $('#ContactPerson').val('');
+        $('#ReferredBy').val('');
+        $('#Balance').val('');
+        $('#LoginUrl').val('');
+        $('#SecurityCode').val('');
+        $('#SMTPServer').val('');
+        $('#SMTPPort').val('');
+        $('#SMTPUsername').val('');
+        $('#SMTPPassword').val('');
+        $('#CurrentBalance').val('');
+        $('#hdfAgentId').val('');
+        $('#hdfImageId').val('');
+        $('#hdfCreatedDate').val('');
+        $('#CurrentBalance').val('');
+        $('#update').hide();
+        $('#delete').hide();
+        $('#save').show();
+        ClearPreview();
+    }
+    function bindDataAgentInfo(data) {
+        $('#Logo').val('');
+
+        $('#Code').val(data.Code);
+        $('#Email').val(data.Email);
+        $('#Name').val(data.Name);
+        $('#Street').val(data.Street);
+        $('#City').val(data.City);
+        $('#State').val(data.State);
+        $('#Zip').val(data.Zip);
+        $('#Country').val(data.Country);
+        $('#Mobile').val(data.Mobile);
+        $('#Phone').val(data.Phone);
+        $('#ContactPerson').val(data.ContactPerson);
+        $('#ReferredBy').val(data.ReferredBy);
+        $('#Balance').val(data.Balance);
+        $('#LoginUrl').val(data.LoginUrl);
+        $('#SecurityCode').val(data.SecurityCode);
+        $('#SMTPServer').val(data.SMTPServer);
+        $('#SMTPPort').val(data.SMTPPort);
+        $('#SMTPUsername').val(data.SMTPUsername);
+        $('#SMTPPassword').val(data.SMTPPassword);
+        $('#CurrentBalance').val(data.CurrentBalance);
+        $('#hdfAgentId').val(data.BusinessId);
+       // $('#hdfCreatedDate').val(datetimeFormate(data.CreatedOnUtc));
+        
+
+        $("#targetImg").attr('src', "/AppFile/Images/" + data.PicPath);
+        $("#imgPreview").show();
+        $('#hdfImageId').val(data.PicPath).toString();
+        //if (data.Deleted === true) {
+
+        //    $('#IsDeleted').prop('checked', 'true');
+        //}
+        //else {
+
+        //    $('#IsDeleted').prop('checked', false);
+        //}
+
+        if (data.Status === 1) {
+            $('#Active').prop('checked', true);
+        }
+        if (data.Status === 0) {
+            $('#Inactive').prop('checked', true);
+        }
+        $('#update').show();
+        $('#delete').show();
+        $('#save').hide();
+    }
+    //function datetimeFormate(data) {
+    //    var dateString = data;
+    //    var dx = new Date(parseInt(dateString.substr(6)));
+    //    var dd = dx.getDate();
+    //    var mm = dx.getMonth() + 1;
+    //    var yy = dx.getFullYear();
+    //    var hh = dx.getTime();
+    //    //var mi = dx.getMinutes;
+    //    //var ss = dx.getSeconds();
+
+
+    //    if (dd <= 9) {
+    //        dd = "0" + dd;
+    //    }
+
+    //    if (mm <= 9) {
+    //        mm = "0" + mm;
+    //    }
+    //    var displayDate = mm + "/" + dd + "/" + yy + " "+ hh;
+    //    // alert(displayDate);
+    //    return displayDate;
+
+    //}
+
+
+
+
+    function BindDataForUpdate() {
+        var isActive;
+      
+        //if (document.getElementsByName('IsActive')[0].checked) {
+        //    isActive = true;
+        //}
+        //else {
+        //    isActive = false;
+        //}
+
+    
+        var formData = new FormData();
+        var fileUpload = $("#Logo").get(0);
+        var files = fileUpload.files;
+
+        if ($('#Logo').val() !== '' && $('#hdfImageId').val() === '') {
+            
+            formData.append("UploadImage", files[0]);
+        } else if ($('#Logo').val() !== '' && $('#hdfImageId').val() !== '') {
+            formData.append("UploadImage", files[0]);
+
+        } else if ($('#Logo').val() === '' && $('#hdfImageId').val() !== '') {
+
+            var f = $('#hdfImageId').val();
+
+            formData.append("PicPath", f);
+        }
+        else {
+            formData.append("PicPath", null);
+        }
+        formData.append("Code", $('#Code').val());
+        formData.append("Email", $('#Email').val());
+        formData.append("Name", $('#Name').val());
+        formData.append("Street", $('#Street').val());
+        formData.append("City", $('#City').val());
+        formData.append("State", $('#State').val());
+        formData.append("Zip", $('#Zip').val());
+        formData.append("Country", $('#Country').val());
+        formData.append("Mobile", $('#Mobile').val());
+        formData.append("Phone", $('#Phone').val());
+        formData.append("ContactPerson", $('#ContactPerson').val());
+        formData.append("ReferredBy", $('#ReferredBy').val());
+        formData.append("Balance", $('#Balance').val());
+        formData.append("LoginUrl", $('#LoginUrl').val());
+        formData.append("SecurityCode", $('#SecurityCode').val());
+        formData.append("SMTPServer", $('#SMTPServer').val());
+        formData.append("SMTPPort", $('#SMTPPort').val());
+        formData.append("SMTPUsername", $('#SMTPUsername').val());
+        formData.append("SMTPPassword", $('#SMTPPassword').val());
+        formData.append("CurrentBalance", $('#CurrentBalance').val());
+        formData.append("Status", $('input[name="Status"]:checked').val());
+        formData.append("BusinessId", $('#hdfAgentId').val());
+        //formData.append("CreatedOnUtc", $('#hdfCreatedDate').val());
+
+
+        return formData;
+    }
+    $('#update').click(function () {
+        var isValidData = checkValidation();
+        if (isValidData) {
+            var data = BindDataForUpdate();
+
+            $.ajax({
+
+                url: "/Agent/AgentUpdate",
+                type: "POST",
+                data: data,
+                contentType: false,
+            
+                processData: false,
+             
+                success: function (obj) {
+                    if (obj.status == true) {
+                       
+                        AgentTable.destroy();
+                        clearData();
+                        loadAgent();
+                    }
+                    document.getElementById('showMessage').innerHTML = obj.message;
+                },
+            });
+        }
+    });
+    function deleteData(id) {
+        if (confirm("Are you sure ?")) {
+            var data = {
+                BusinessId: id
+            };
+            $.ajax({
+                url: '@Url.Action("DeleteAgent", "Agent")',
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                success: function (obj) {
+                    if (obj.status == true) {
+                        AgentTable.destroy();
+                        clearData();
+                        loadAgent();
+                    }
+                    document.getElementById('showMessage').innerHTML = obj.message;
+                },
+            });
+        }
+        return false;
+    }
+    </script>
+
+}
